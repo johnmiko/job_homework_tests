@@ -1,0 +1,102 @@
+3 solutions to csv problem
+
+Hi Sandy,
+
+the reason you are getting an invalid phone number at row 12 is because the phone number of Robbin Indge is not a valid phone number, it's missing the area code, it only says "452-9796". The simplest option is to make sure all phone numbers in the spreadsheet include an area code. Currently, the code will complain if the phone number is not exactly 10 digits long. Another option is that I can disable this check so that it doesn't check whether the phone number is valid. 3rd option would be I can allow for 7 digit phone numbers if you want. To summarize here are the 3 options. 
+1. Make sure when entering a phone number in the excel sheet that it is either blank, or has 10 digits
+    Pro: Doesn't require any code changes
+    Con: CSV won't get uploaded if there are invalid phone numbers (assuming that is okay)
+2. Remove 10 digit phone number check
+    Pro: The number of digits in the phone number will not be checked, allowing for numbers without area codes
+    Con: Allows for incorrect phone numbers to be uploaded
+3. Modify the phone number check to allow for 7 digit numbers
+    Pro: 7 digit phone numbers are allowed
+    Con: Need to cchange code
+    
+To me 1 or 3 seem best but let me know. If we are going to be including European numbers in the future, then we will need to check that those lengths are correct as well. It would also be good to know if it's okay to upload the CSV with incorrect phone numbers. If that's okay, then I can remove the check completely. If we don't want this, it may be better to go with option 1, and continue to have the error when one is incorrect.
+
+Regards,
+
+John Miko
+
+
+
+Help with a broken CSV upload
+You come into work one day to find an email in your inbox from Sandy Smithers, an implementation manager at your company.
+
+From: Sandy Smithers
+To: You
+CC: leslie@csv.org
+Subject: File upload broken - help!
+
+I was trying to upload this spreadsheet for our new client, The Community Service Volunteers (CC Leslie). I made sure all the names were filled in since that was a problem before, but I'm getting this error:
+
+ERROR Invalid phone number at CSV Row 12, Column 36
+
+We really need to get this file uploaded ASAP so we can close out implementation. Can you take a look and give me a few (maybe 3?) options I can present back to the client on how we might be able to fix this in the next 24 hours?
+
+Thanks!
+
+– Sandy
+
+Being the eager engineer that you are, you snap into action to help Sandy come up with some options. Searching through the codebase for their error message, you come across the section of code on the left. (Feel free to change the code to whatever language is most comfortable for you from the available options.)
+
+Debug and present options
+Your goal is to reply to Sandy's email with 3 options – fixes, workarounds, code changes, etc – she can present back to the client.
+
+You do not need to make any code changes for this scenario, although you are welcome to do so if it helps you understand the issue.
+
+We have provided some example phone numbers that you can try out by clicking the "Run Tests" option and looking at the test results pane in the lower-right corner. (You may need to click on the green arrow to expand and see log output if the sample phone numbers are all valid. Also note that at smaller screen sizes, "Run Tests" might be a "Play" icon.)
+
+Here are some things to consider when coming up with options:
+
+What data could be changed in the spreadsheet or the original source?
+What assumptions could you make to fill in gaps in the data?
+What code changes could you make to allow the import to proceed?
+What are the tradeoffs or consequences of any of the above approaches that might help Sandy or the client make a decision?
+Your response
+Enter your response in the "Your Notes" tab in the upper-right quadrant. Here is a template you can paste in for your email reply to Sandy and Leslie:
+
+**From**: You
+**To**: Sandy
+**CC**: Leslie
+**Subject**: re: File upload broken - help!
+
+{your email to Sandy, an implementation manager who works closely with clients}
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+
+public class StringCleanser {
+  public static string RemoveNonDigits(string str) {
+    return Regex.Replace(str, @"\D", "");
+  }
+}
+
+public class PhoneNumberParser {
+  public static string Cleanse(string phoneNumber) {
+    // Don't manipulate the parameter directly!
+    string cleansedPhone = (string)phoneNumber.Clone();
+    
+    // remove parenthesis, hyphens, periods, etc
+    cleansedPhone = StringCleanser.RemoveNonDigits(cleansedPhone);
+    
+    // empty is OK
+    if (cleansedPhone != "" && cleansedPhone.Length != 10) {
+      throw new System.ArgumentException("Invalid phone number");
+    }
+    
+    return cleansedPhone;
+  } 
+}
+
+// NOTE: Feel free to test other phone numbers to figure out what's happening
+public class Challenge {
+  public static void Main() {
+    Console.WriteLine(PhoneNumberParser.Cleanse("(123) 456-7890"));
+    Console.WriteLine(PhoneNumberParser.Cleanse("123-456-7890"));
+    Console.WriteLine(PhoneNumberParser.Cleanse("456-7890"));
+  }
+}

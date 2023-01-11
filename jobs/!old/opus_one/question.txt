@@ -1,0 +1,20 @@
+# Acceptance Criteria
+
+Renamed power-calc to power_calc so I could import functions from it
+Change data type of sets to tuples
+
+#-------------
+# 1.) Program can accept a json file (ie. data1.json) from the command line.
+# 2.) Program can verify that json file exists and is in expected format.
+# 3.) Program can clean json file:
+#   a) ensure it is semantically correct and have known quantities for voltage, current, and power factor.
+#   b) Use allowable names (V_NAMES, I_NAMES, PF_NAMES) provided below to clean keys.
+# 4.) Program creates a new dictionary that has the same location as the primary key, but the value is three new
+#       calculated quantities:
+#           s = apparent power
+#           p = real power
+#           q = reactive power
+# 5.) Use the "calc_power" function to handle the calculations for the new dictionary.
+#   Note: Some of the input data doesn’t include power factor. In those cases, please assume a power factor of 0.9.
+# 6.) Complete the TODO in calc_power. Use the calc_power doc string for more information.
+# 7.) Program outputs the n ew dictionary in a user readable manner.

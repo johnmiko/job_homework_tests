@@ -1,0 +1,7 @@
+Reason why
+- Concerned about short exposure to PHP
+- PHP didn't do as good as I thought
+    - did not invest any time into doing any of the tests
+    - instructions weren't perfect
+    - my references said they shouldn't put me into a large php codebase that I wasn't familiar with
+

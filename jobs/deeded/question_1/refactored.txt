@@ -1,0 +1,32 @@
+// Reading the code, in every scenario sum.markAsRegistered(true); is always executed.
+// Assumed that this can be run before other sections of code and moved to the top.
+// Converted if statement into function clientDetailHasIds.
+// It looks like the for loop will stop after 1 execution due to the break statement but didn't change in case
+// existing functions avoided the break statement somehow.
+// Because we check if the client has valid id's regardless of if they are values of 0,2 or 4, we do not need to check the id and can remove the section that checks it
+
+import everything.*;
+
+    class DoesWhat
+    {
+        public Boolean clientDetailHasIds(ClientDetail dtl)
+        {
+            return (dtl.getClientLocationId() != null && dtl.getClientTierId() != null && dtl.getClientCompanyTierId() != null);
+        }
+
+        public void DoStuff(Client client, Map clientToFlagMap, ClientSummary sum)
+        {
+            for (int d = 0; d < client.getClientDetails().size();)
+            {
+
+                ClientDetail dtl = client.getClientDetails().get(d);
+                sum.markAsRegistered(true);
+                if (clientDetailHasIds(dtl))
+                {
+                    sum.setIsPrimary("Y");
+                    clientToFlagMap.put(dtl.getClientSecondaryId(), "Y");
+                } //end if
+                break;
+            } //end for
+        } //end DoStuff
+    } // end class

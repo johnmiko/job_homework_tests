@@ -1,0 +1,116 @@
+Question: Create a component that contains a button and a timer with count-up functionality. When the button is clicked the timer will start counting up. Pressing the button again will stop the timer and return its value to 0
+
+- Conditionally render another component/React Element (e.g. <span>10s has passed</span>) at the 10 second mark
+
+// HINT: use setInterval
+// props.styling
+class StopWatchStyle {
+	color: string
+	}
+
+function Stopwatch({styling: StopWatchStyle}) {
+	const [elapsedTime, setElapsedTime] = useState(0);
+
+	function onButtonClick() {
+	// button component
+	// 2 ptahs, keep track of I guess elapsedTime, if it's 0, then we know it's the first click
+  // if it's not 0, then we stop it
+	let buttonIsClicked = elapsedTime !== 0;
+	if (buttonIsClicked){		
+		setElapsedTime(0)
+	}
+
+	else {
+		var timer = setInterval(function () {setElapsedTime(elapsedTime + 1)}, 1000);	  
+	}
+	clearTimeout(timer);
+
+	}
+
+	function tenSecondsPassedSpan() {
+	if (elapsedTime > 10)
+		return <span style={styling.color}>10s has passed</span>
+	}
+	else{
+	return null;
+	}
+
+	return (
+		<div>
+      <p>Stopwatch: {elapsedTime}</p>
+      {tenSecondsPassedSpan()}
+      <button onClick={onButtonClick}></button>
+		</div>
+	)
+
+// -----------------------------------------------------------------
+
+You are given an internal service that accepts a city name as input, and returns some information about the city.
+
+write a method/complete the existing method
+
+interface CityInfo {
+    province: string
+    mayor: string
+}
+
+Complete the following method:
+interface ExtendedCityInfo extends CityInfo{
+    city: string
+}
+
+// Throws InvalidCityError if city is invalid
+async getInfoByCityName(city:string) : Promise<CityInfo>;
+  
+  
+  
+ async getCityInfos( cities : string[] ) : Promise<ExtendedCityInfo[]> {
+  	// cities = ["chicago"];
+  // so we have cityInfo and we want to return the ExtendedCityInfo
+  // await and async
+  // handle the error, promise is already resolved
+  	var extendedCities = []
+  	for city in cities: 
+  // if any is not found, then raise an exception
+  		try{
+  			var cityInfo = await getInfoByCityName(city);
+  		}
+  		catch {
+  			throw CityNotFoundException(`city ${city} not found`}
+  }
+  		cityInfo.city = city
+  		extendedCities.push(cityInfo)
+    return extendedCities;
+  }
+
+ 
+  // -----
+  
+Let say if a new client called “Michael” purchased a new property at the address “123 main street”, and we want to create a new entry in the database to reflect that. Could you write the queries to add those records?
+Existing Database Schema:
+
+Client = {
+	client_id: number
+	name: string
+}	
+        
+Property = {
+	address: string,
+	client_id: number
+}
+
+// firs tcreate client michael, then we need to add the property to the table Property
+INSERT INTO Client (name)
+  VALUES ('Michael');
+  
+// this generates a record with client_id = 6
+  
+  
+INSERT INTO Property (address, client_id)
+  VALUES ('123 main street', (select client_id from client where name = 'Michael'));
+  
+One day, you get a bug report. Apparently, when these 2 queries were executed, the second query threw an Foreign Key not found exception. What went wrong? How would you fix the issue?
+  
+  
+  
+}

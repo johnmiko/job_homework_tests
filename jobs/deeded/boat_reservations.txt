@@ -1,0 +1,94 @@
+Boat reservation system
+
+1 single business
+1000 Boats, they are all the same, a number written on the side of each boat
+1 person manning the phone at the same time
+A boat can be reserved for 1 or more days
+
+We need to support the following operations:
+
+Do you have a boat available between date A and B -> yes/no
+Give their name, phone # and dates A - B -> res # / no
+Give their name, phone #, ask for their reservation numbers -> res # s
+Cancel res # -> ok
+
+“””
+Make relational schema - just tables and fields
+After write queries
+Boat has ID as = boat_number
+Reservation_time = 1 or more days, increment by number of days
+always come back in time, boats never break
+Boat available for time period? Always has to be the same boat
+IF reservation, record name, phone # + dates, if yes, respond yes/no
+Need to be able to tell them all the reservations they have
+Cancel reservation
+
+boat , id, person has it, time
+No time limits
+“””
+schema
+Boats, days unavailable
+people , name, phone
+
+
+Table Boat,
+Id = UUID
+
+Table Reservations
+ID = UUID = primary key
+Boat_id = ID
+Person = string
+Contact Info = string = phone number
+Start date = datefield
+End date = datefield
+
+Do you have a boat available between date A and B -> yes/no
+2 scenarios in which a boat is available
+Boat id does not exist in reservation table
+Boat id exists in reservation table, but is not reserved in the requested time period
+Query the reservations table
+	Wanted_start
+	wanted_end
+
+SELECT * FROM Boat
+WHERE NOT EXISTS (SELECT boat_id FROM Reservations
+WHERE boat.id=reservations.boat_id)
+
+	// Need to catch the case where the boat can have more than 1 reservation.
+// For each boat, select all reservations, check if it is not free
+	// the boat is not free if the wanted_start exists between any dates
+
+OR
+wanted_start < start_date AND wanted_end < end_date  // before current reservation
+wanted_start > start_date  AND wanted_end  > end_date  // after existing reservation
+
+AND wanted_end not between start_date AND end_date
+
+
+User requests boat from May 5th to 10th, is there a boat available?
+Any boats with 0 reservations? Yes no, if no go to next step
+Any boats with reservations, but not from May 5th to 10th
+Lets say boat 4 is booked from May 1st to May 7th
+Boat 6 is booked for April 20th to 30th AND June 1st to 10th
+What query will return boat 7 as available
+
+// Possible scenarios
+Is the wanted_start > start_date and wanted_start < end_date // unavailable
+Is the wanted_end > start_date and wanted_end < end_date // unavailable
+
+Is the wanted_start < start_date and wanted_start < end_date // maybe available
+Is the wanted_end < start_date and wanted_end < end_date // maybe available
+
+// boat is only available if the previous 2 conditions are both true for all
+(wanted_start < start_date and wanted_start < end_date) AND
+(wanted_end < start_date and wanted_end < end_date)
+
+
+
+If there is any boats not in the reservation table, then we know, that that boat is available
+
+Date range
+
+Give their name, phone # and dates A - B -> res # / no
+Give their name, phone #, ask for their reservation numbers -> res # s
+Cancel res # -> ok

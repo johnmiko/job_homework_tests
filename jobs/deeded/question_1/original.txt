@@ -1,0 +1,47 @@
+You have been asked to extend the code below to introduce a new record with id 5 (dtl.
+
+getClientRecordId() is 5). Before this requirement the call to getClientRecordId() could never return 5.
+
+You have been tasked with updating the code base while adjusting and improving the overall code.
+
+While doing this you come across the code below, being new to the system you do not know all the details but you have been assured that you can adjust and reactor it. Please modify it in order to make it function under the condition that getClientRecordId() can now return a value of 5.
+
+Hint 1: If all you are doing is adding
+
+dtl.getClientRecordId() == 5 to the if statement you are not doing it correctly
+Hint 2: This code is no specific OO language
+Hint 3: You do not want to break any logic when getClientRecordId() returns any of the old values
+
+import everything.*;
+
+class DoesWhat {
+
+    public void DoStuff(Client client, Map clientToFlagMap, ClientSummary sum) {
+        for (int d = 0; d < client.getClientDetails().size(); ) {
+
+            ClientDetail dtl = client.getClientDetails().get(d);
+            if (dtl.getClientRecordId() == 0 || dtl.getClientRecordId() == 2
+                                                                   || dtl.getClientRecordId() == 4) {
+                sum.markAsRegistered(true);
+                if (dtl.getClientLocationId() != null && dtl.getClientTierId() != null
+					                                     && dtl.getClientCompanyTierId() != null) {
+                    sum.setIsPrimary("Y");
+                    clientToFlagMap.put(dtl.getClientSecondaryId(), "Y");
+                } //end if
+
+            } else {
+
+                if (dtl.getClientLocationId() != null && dtl.getClientTierId() != null
+					                                     && dtl.getClientCompanyTierId() != null) {
+                    sum.markAsRegistered(true);
+                    sum.setIsPrimary("Y");
+                    clientToFlagMap.put(dtl.getClientSecondaryId(), "Y");
+                } else {
+                    sum.markAsRegistered(true);
+                } //end if
+
+            } //end outer if
+            break;
+        } //end for
+    } //end DoStuff
+} // end class

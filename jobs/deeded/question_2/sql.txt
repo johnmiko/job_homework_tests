@@ -1,0 +1,13 @@
+Find all tracks of type video (MediaType.name equal to "video") where the cost is more than $10 per invoice line item
+
+select TrackId from InvoiceLine
+    join Track on Track.TrackId = InvoiceLine.TrackId
+    join MediaType on MediaType.MediaTypeId = Track.MediaTypeId
+    where MediaType.Name == 'video'
+    and InvoiceLine.UnitPrice > 10
+
+For each customer display first name, last name and the total amount they have spent overall in the store
+
+select Customer.CustomerId, FirstName, LastName, SUM(Total) As TotalSpent from Customer
+    left join Invoice on Invoice.CustomerId = Customer.CustomerId
+    group by Customer.CustomerId

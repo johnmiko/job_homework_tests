@@ -1,0 +1,25 @@
+Suppose that we define a node in binary a tree as follows
+
+class BinaryTreeNode {
+  nodeValue: number;
+  rightNode?: TreeNode;
+  leftNode?: TreeNode;
+
+  constructor(nodeValue: number, rightNode?: TreeNode, leftNode?: TreeNode) {
+    this.nodeValue=nodeValue;
+    this.rightNode=rightNode;
+    this.leftNode=leftNode;
+  }
+}
+
+Definitions:
+The length of the branch - number of nodes from root to leaf
+Sum of values in a branch - the sum of nodeValues in the branch
+
+The goal of this question is to find the sum of the values of all nodes in longest branch.
+
+//Note: To implement, any language can be used. If using a different syntax, please convert the function definition to the syntax appropriate to the language used
+function longestBranch(tree?: TreeNode): number{
+
+
+}

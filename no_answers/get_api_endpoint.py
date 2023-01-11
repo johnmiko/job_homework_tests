@@ -1,7 +1,6 @@
 """
-Codewriting
-
-You own a small online store, consisting of its own site and a bunch of products presented on it. Your task is to retrieve all the products that are currently contained in the store using the provided REST API.
+You own a small online store, consisting of its own site and a bunch of products presented on it. Your task is to
+retrieve all the products that are currently contained in the store using the provided REST API.
 
 The current site contains the products represented by the following fields:
 
@@ -62,8 +61,8 @@ Product Product2 has price 100 and no manufacturer
 [execution time limit] 12 seconds (py3)
 """
 import requests
+
 # import mysql.connector
-import pandas as pd
 
 url = 'http://127.0.0.1:8081/products'
 r = requests.get(url)

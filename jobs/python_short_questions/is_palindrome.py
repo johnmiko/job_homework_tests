@@ -1,12 +1,4 @@
 """
-Question 2 of 5
-5:59:30
-DESC
-RULES
-README
-SETTINGS
-Codewriting
-
 Given the string, check if it is a palindrome.
 
 Example

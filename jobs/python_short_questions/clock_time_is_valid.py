@@ -1,12 +1,4 @@
 """
-Question 1 of 5
-5:59:46
-DESC
-RULES
-README
-SETTINGS
-Codewriting
-
 Check if the given string is a correct time representation of the 24-hour clock.
 
 Example

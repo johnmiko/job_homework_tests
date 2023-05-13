@@ -1,0 +1,11 @@
+.form {
+  white-space: pre-wrap;
+  width: '50%';
+  color: blue;
+}
+.weather {
+  color: red;
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
